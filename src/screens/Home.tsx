@@ -10,7 +10,8 @@ import {
 import {
   characterService,
 } from '../graphql/services/characterService';
-import { Character } from '../constants/types/types';
+import { Character } from '../constants/types/gqltypes';
+import Card from '../components/card/Card';
 
 
 export default function Home() {
@@ -34,39 +35,27 @@ export default function Home() {
 
   return (
 
-    <View>
-        <Text>TESTEEEEEEEEEEEEEE</Text>
-        <Text>TESTEEEEEEEEEEEEEEEEEEEEEEEE</Text>
-        <Text>TESTEEEEEEEEEEEEEE</Text>
+    <View style={{
+      flex: 1,
+      padding: 20,
+
+    }}>
         <FlatList
         data={characters}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-            <View
-            style={{
-                marginBottom: 20,
-                alignItems: 'center',
-            }}
-            >
-            <Image
-                source={{ uri: item.image }}
-                style={{
-                width: 120,
-                height: 120,
-                borderRadius: 10,
-                }}
-            />
-
-            <Text>{item.name ?? "Unknown"}</Text>
-
-            <Text>{item.species ?? "Unknown"}</Text>
-
-            <Text>{item.status ?? "Unknown"}</Text>
-
+            <View style={styles.container}>
+                <Card character={item} />
             </View>
-            
         )}
         />
     </View>
   );
+}
+
+const styles = {
+  container: {
+    flex: 1,
+    padding: 20,
+    },
 }
