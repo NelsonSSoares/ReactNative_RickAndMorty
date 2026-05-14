@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import {
   FlatList,
   Image,
+  StyleSheet,
   Text,
   View,
 } from 'react-native';
@@ -35,12 +36,8 @@ export default function Home() {
 
   return (
 
-    <View style={{
-      flex: 1,
-      padding: 20,
-
-    }}>
-        <FlatList
+    <View style={styles.container}>
+    <FlatList
         data={characters}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
@@ -53,9 +50,9 @@ export default function Home() {
   );
 }
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
     },
-}
+});
