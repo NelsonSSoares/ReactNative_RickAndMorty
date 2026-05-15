@@ -1,4 +1,11 @@
-import { Image, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+} from 'react-native';
+
 import { useNavigation } from '@react-navigation/native';
 
 import { Character } from '../../constants/types/gqltypes';
@@ -8,6 +15,7 @@ export default function Card({ character }: { character: Character }) {
 
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       onPress={() => navigation.navigate('CharacterDetails')}>
       
       <View style={styles.container}>
@@ -16,22 +24,45 @@ export default function Card({ character }: { character: Character }) {
           style={styles.img}
         />
 
-        <Text style={styles.txt}>{character.name}</Text>
+        <View style={styles.infoContainer}>
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>Name:</Text>
 
-        <Text style={styles.txt}>{character.species}</Text>
+            <Text
+              numberOfLines={2}
+              style={styles.value}>
+              {character.name}
+            </Text>
+          </View>
 
-        <Text
-          style={{
-            color:
-              character.status === 'Alive'
-                ? 'green'
-                : character.status === 'Dead'
-                ? 'red'
-                : 'gray',
-            fontWeight: 'bold',
-          }}>
-          {character.status}
-        </Text>
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>Species:</Text>
+
+            <Text style={styles.value}>
+              {character.species}
+            </Text>
+          </View>
+
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>Status:</Text>
+
+            <Text
+              style={[
+                styles.value,
+                {
+                  color:
+                    character.status === 'Alive'
+                      ? 'green'
+                      : character.status === 'Dead'
+                      ? 'red'
+                      : 'gray',
+                  fontWeight: 'bold',
+                },
+              ]}>
+              {character.status}
+            </Text>
+          </View>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -39,21 +70,43 @@ export default function Card({ character }: { character: Character }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 20,
-    alignItems: 'center',
-    borderWidth: 3,
-    borderColor: 'gray',
-    borderRadius: 10,
+    height: 250,
+    borderWidth: 2,
+    borderColor: '#dcdcdc',
+    borderRadius: 16,
+    padding: 12,
+    backgroundColor: '#fff',
+    elevation: 5,
   },
 
   img: {
-    width: 120,
+    width: '100%',
     height: 120,
-    borderRadius: 10,
+    borderRadius: 12,
+    marginBottom: 12,
   },
 
-  txt: {
+  infoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+
+  infoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+
+  label: {
     fontWeight: 'bold',
+    fontSize: 15,
+  },
+
+  value: {
+    flex: 1,
+    textAlign: 'right',
+    fontSize: 15,
+    color: '#555',
+    marginLeft: 10,
   },
 });

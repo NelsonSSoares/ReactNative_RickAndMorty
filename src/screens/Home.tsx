@@ -3,15 +3,13 @@ import { useEffect, useState } from 'react';
 import {
   FlatList,
   StyleSheet,
-  View
+  View,
+  TextInput,
 } from 'react-native';
 
 import Card from '../components/card/Card';
 import { Character } from '../constants/types/gqltypes';
-import {
-  characterService,
-} from '../graphql/services/characterService';
-
+import { characterService } from '../graphql/services/characterService';
 
 export default function Home() {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -20,9 +18,6 @@ export default function Home() {
     try {
       const data = await characterService.getAllCharacters();
       setCharacters(data?.characters.results);
-      console.log("FUNCIONOU REQUEST? ",data?.characters.results);
-      
-    
     } catch (error) {
       console.log(error);
     }
@@ -33,24 +28,60 @@ export default function Home() {
   }, []);
 
   return (
-
     <View style={styles.container}>
-    <FlatList
-        data={characters}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-            <View style={styles.container}>
-                <Card character={item} />
-            </View>
-        )}
+      <View style={styles.searchContainer}>
+        <TextInput
+          placeholder="Buscar personagem..."
+          style={styles.input}
         />
+      </View>
+
+      <FlatList
+        data={characters}
+        numColumns={2}
+        showsVerticalScrollIndicator={false}
+        columnWrapperStyle={styles.row}
+        keyExtractor={item => item.id}
+        contentContainerStyle={{
+          paddingBottom: 40,
+        }}
+        renderItem={({ item }) => (
+          <View style={styles.cardWrapper}>
+            <Card character={item} />
+          </View>
+        )}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
     flex: 1,
-    padding: 20,
-    },
+    paddingHorizontal: 16,
+    paddingTop: 50,
+    backgroundColor: '#fff',
+  },
+
+  searchContainer: {
+    marginBottom: 20,
+  },
+
+  input: {
+    height: 45,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 10,
+    paddingHorizontal: 12,
+  },
+
+  row: {
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+
+  cardWrapper: {
+    width: '48%',
+  },
 });
