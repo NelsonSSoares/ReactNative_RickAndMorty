@@ -1,29 +1,40 @@
-import { Image, StyleSheet, View } from "react-native";
-import { Character } from "../../constants/types/gqltypes";
-import { Text } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+import { Character } from '../../constants/types/gqltypes';
 
 export default function Card({ character }: { character: Character }) {
-    return (
-        <View style={styles.container}>
-            <Image
-                source={{ uri: character.image }}
-                style={styles.img}
-            />
-            <Text style={styles.txt}>{character.name}</Text>
-            <Text style={styles.txt}>{character.species}</Text>
-            <Text
-                style={{
-                    color:
-                    character.status === 'Alive'
-                        ? 'green'
-                        : character.status === 'Dead'
-                        ? 'red'
-                        : 'gray',
-                    fontWeight:'bold'
-                }}>{character.status}</Text>
-         
-        </View>
-    );
+  const navigation = useNavigation();
+
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate('CharacterDetails')}>
+      
+      <View style={styles.container}>
+        <Image
+          source={{ uri: character.image }}
+          style={styles.img}
+        />
+
+        <Text style={styles.txt}>{character.name}</Text>
+
+        <Text style={styles.txt}>{character.species}</Text>
+
+        <Text
+          style={{
+            color:
+              character.status === 'Alive'
+                ? 'green'
+                : character.status === 'Dead'
+                ? 'red'
+                : 'gray',
+            fontWeight: 'bold',
+          }}>
+          {character.status}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -41,7 +52,8 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 10,
   },
-  txt:{
-    fontWeight: 'bold'
-  }
+
+  txt: {
+    fontWeight: 'bold',
+  },
 });

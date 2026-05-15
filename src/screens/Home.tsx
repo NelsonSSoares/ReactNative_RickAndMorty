@@ -2,17 +2,15 @@ import { useEffect, useState } from 'react';
 
 import {
   FlatList,
-  Image,
   StyleSheet,
-  Text,
-  View,
+  View
 } from 'react-native';
 
+import Card from '../components/card/Card';
+import { Character } from '../constants/types/gqltypes';
 import {
   characterService,
 } from '../graphql/services/characterService';
-import { Character } from '../constants/types/gqltypes';
-import Card from '../components/card/Card';
 
 
 export default function Home() {
