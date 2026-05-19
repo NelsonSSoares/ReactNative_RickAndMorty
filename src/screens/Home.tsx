@@ -31,7 +31,7 @@ export default function Home() {
     <View style={styles.container}>
       <View style={styles.searchContainer}>
         <TextInput
-          placeholder="Buscar personagem..."
+          placeholder="Search Characters..."
           style={styles.input}
         />
       </View>
