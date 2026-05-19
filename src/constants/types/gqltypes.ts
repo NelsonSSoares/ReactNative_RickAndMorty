@@ -13,5 +13,19 @@ export type GetAllCharactersResponse = {
 };
 
 export type GetCharacterByIdResponse = {
-  character: Character;
+  character: CharacterDetails;
+};
+
+export type CharacterDetails = {
+  id: string;
+  name: string;
+  status: string;
+  species: string;
+  type: string;
+  gender: string;
+  created: string;
+  location: {
+    name: string;
+    type: string;
+  };
 };

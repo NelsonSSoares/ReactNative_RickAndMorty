@@ -7,16 +7,18 @@ import {
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-
 import { Character } from '../../constants/types/gqltypes';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../routes/types/RootStackParamList';
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function Card({ character }: { character: Character }) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
 
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => navigation.navigate('CharacterDetails')}>
+      onPress={() => navigation.navigate('CharacterDetails' , { id: character.id   })}>
       
       <View style={styles.container}>
         <Image

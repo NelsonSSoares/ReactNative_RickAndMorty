@@ -19,9 +19,14 @@ export const GET_CHARACTER_BY_ID = gql`
     character(id: $id) {
       id
       name
-      image
-      species
       status
+      species
+      type
+      gender
+      created
+      location {
+        name
+      }
     }
   }
 `;
