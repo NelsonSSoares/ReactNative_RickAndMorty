@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import Card from '../components/card/Card';
-import { Character } from '../constants/types/gqltypes';
+import { Character } from '../constants/types/types';
 import { characterService } from '../graphql/services/characterService';
 
 export default function Home() {

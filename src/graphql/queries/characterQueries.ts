@@ -20,12 +20,14 @@ export const GET_CHARACTER_BY_ID = gql`
       id
       name
       status
+      image
       species
       type
       gender
       created
       location {
         name
+        type
       }
     }
   }

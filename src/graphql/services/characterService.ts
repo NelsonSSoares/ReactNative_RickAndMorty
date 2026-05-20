@@ -1,4 +1,4 @@
-import { GetAllCharactersResponse, GetCharacterByIdResponse } from "../../constants/types/gqltypes"
+import { GetAllCharactersResponse, GetCharacterByIdResponse } from "../../constants/types/types"
 import { client } from "../client"
 import { GET_ALL_CHARACTERS, GET_CHARACTER_BY_ID } from "../queries/characterQueries"
 

@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-import { Character } from '../../constants/types/gqltypes';
+import { Character } from '../../constants/types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../routes/types/RootStackParamList';
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
