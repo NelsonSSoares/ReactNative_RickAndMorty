@@ -57,10 +57,9 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
     flex: 1,
     paddingHorizontal: 16,
-    paddingTop: 50,
+    paddingTop: 15,
     backgroundColor: '#fff',
   },
 

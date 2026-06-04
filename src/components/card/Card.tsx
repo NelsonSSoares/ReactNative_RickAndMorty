@@ -63,6 +63,7 @@ export default function Card({ character }: { character: Character }) {
               ]}>
               {character.status}
             </Text>
+
           </View>
         </View>
       </View>
