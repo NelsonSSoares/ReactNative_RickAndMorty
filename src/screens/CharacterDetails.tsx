@@ -4,6 +4,7 @@ import { RootStackParamList } from '../routes/types/RootStackParamList';
 import { useEffect, useState } from 'react';
 import { characterService } from '../graphql/services/characterService';
 import type { CharacterDetails } from '../constants/types/types';
+import FavoriteButton from '../components/faviroteButton/FavoriteButton';
 
 type RouteProps = RouteProp<RootStackParamList, 'CharacterDetails'>;
 
@@ -56,15 +57,15 @@ export default function CharacterDetails() {
       style={styles.screen}
       contentContainerStyle={styles.scrollContent}
     >
-  
       <View style={styles.avatarWrapper}>
-        <Image
-          source={{ uri: character?.image }}
-          style={styles.avatar}
-        />
+        <Image source={{ uri: character?.image }} style={styles.avatar} />
       </View>
 
-      <Text style={styles.name}>{character?.name}</Text>
+      <View style={styles.statusContainer}>
+        <Text style={styles.name}>{character?.name}</Text>
+        <FavoriteButton id={character?.id ?? ''} />
+      </View>
+
       <View style={[styles.statusBadge, { backgroundColor: statusColor + '22' }]}>
         <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
         <Text style={[styles.statusText, { color: statusColor }]}>
@@ -113,6 +114,12 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 20,
+  },
+  statusContainer: {
+    width: '100%',
+    alignItems: 'center',
+    gap: 12,
+    marginTop: 16,
   },
   name: {
     fontSize: 26,

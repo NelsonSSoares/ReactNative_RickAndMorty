@@ -1,15 +1,10 @@
-import {
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-} from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import { Character } from '../../constants/types/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../routes/types/RootStackParamList';
+import FavoriteButton from '../faviroteButton/FavoriteButton';
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function Card({ character }: { character: Character }) {
@@ -18,36 +13,30 @@ export default function Card({ character }: { character: Character }) {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => navigation.navigate('CharacterDetails' , { id: character.id   })}>
-      
+      onPress={() =>
+        navigation.navigate('CharacterDetails', { id: character.id })
+      }
+    >
       <View style={styles.container}>
-        <Image
-          source={{ uri: character.image }}
-          style={styles.img}
-        />
+        <Image source={{ uri: character.image }} style={styles.img} />
 
         <View style={styles.infoContainer}>
           <View style={styles.infoRow}>
             <Text style={styles.label}>Name:</Text>
-
-            <Text
-              numberOfLines={2}
-              style={styles.value}>
+            <Text numberOfLines={1} style={styles.value}>
               {character.name}
             </Text>
           </View>
 
           <View style={styles.infoRow}>
             <Text style={styles.label}>Species:</Text>
-
-            <Text style={styles.value}>
+            <Text numberOfLines={1} style={styles.value}>
               {character.species}
             </Text>
           </View>
 
           <View style={styles.infoRow}>
             <Text style={styles.label}>Status:</Text>
-
             <Text
               style={[
                 styles.value,
@@ -60,10 +49,15 @@ export default function Card({ character }: { character: Character }) {
                       : 'gray',
                   fontWeight: 'bold',
                 },
-              ]}>
+              ]}
+            >
               {character.status}
             </Text>
+          </View>
 
+          <View style={styles.infoRow}>
+            <Text style={[styles.label, { marginTop: 9 }]}>Favorite:</Text>
+            <FavoriteButton id={character.id} />
           </View>
         </View>
       </View>
@@ -73,7 +67,7 @@ export default function Card({ character }: { character: Character }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 250,
+    minHeight: 250,
     borderWidth: 2,
     borderColor: '#dcdcdc',
     borderRadius: 16,
@@ -81,7 +75,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     elevation: 5,
   },
-
   img: {
     width: '100%',
     height: 120,
@@ -103,13 +96,15 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: 'bold',
     fontSize: 15,
+    color: '#696969',
   },
 
   value: {
     flex: 1,
     textAlign: 'right',
     fontSize: 15,
-    color: '#555',
+    color: '#000',
     marginLeft: 10,
+    fontWeight: 'bold',
   },
 });
