@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-
+/* 
 export const GET_ALL_CHARACTERS = gql`
   query GetAllCharacters {
      characters {
@@ -10,6 +10,23 @@ export const GET_ALL_CHARACTERS = gql`
         species
         status
         }
+    }
+  }
+`; */
+
+export const GET_ALL_CHARACTERS = gql`
+  query GetAllCharacters($page: Int, $name: String) {
+    characters(page: $page, filter: { name: $name }) {
+      info {
+        next
+      }
+      results {
+        id
+        image
+        name
+        species
+        status
+      }
     }
   }
 `;

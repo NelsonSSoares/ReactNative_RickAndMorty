@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 
 import Card from '../components/card/Card';
@@ -13,19 +14,57 @@ import { characterService } from '../graphql/services/characterService';
 
 export default function Home() {
   const [characters, setCharacters] = useState<Character[]>([]);
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  async function loadCharacters() {
+  async function loadCharacters(name: string) {
+    setLoading(true);
     try {
-      const data = await characterService.getAllCharacters();
-      setCharacters(data?.characters.results);
+      const data = await characterService.getAllCharacters(1, name);
+      const charactersData = data.characters as {
+        results: Character[];
+        info?: { next?: number };
+      };
+      setCharacters(charactersData.results);
+      setPage(1);
+      setHasNextPage(!!charactersData.info?.next);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+  
+  async function loadMore() {
+    if (!hasNextPage || loading) return;
+
+    const nextPage = page + 1;
+    setLoading(true);
+    try {
+      const data = await characterService.getAllCharacters(nextPage, search);
+      const charactersData = data.characters as {
+        results: Character[];
+        info?: { next?: number };
+      };
+      setCharacters(prev => [...prev, ...charactersData.results]);
+      setPage(nextPage);
+      setHasNextPage(!!charactersData.info?.next);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
   useEffect(() => {
-    loadCharacters();
-  }, []);
+    const timer = setTimeout(() => {
+      loadCharacters(search);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [search]);
 
   return (
     <View style={styles.container}>
@@ -33,6 +72,8 @@ export default function Home() {
         <TextInput
           placeholder="Search Characters..."
           style={styles.input}
+          value={search}
+          onChangeText={setSearch}
         />
       </View>
 
@@ -42,9 +83,10 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
         columnWrapperStyle={styles.row}
         keyExtractor={item => item.id}
-        contentContainerStyle={{
-          paddingBottom: 40,
-        }}
+        contentContainerStyle={{ paddingBottom: 40 }}
+        onEndReached={loadMore}
+        onEndReachedThreshold={0.3}
+        ListFooterComponent={loading ? <ActivityIndicator /> : null}
         renderItem={({ item }) => (
           <View style={styles.cardWrapper}>
             <Card character={item} />

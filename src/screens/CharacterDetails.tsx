@@ -28,16 +28,16 @@ export default function CharacterDetails() {
   const { id } = route.params;
   const [character, setCharacter] = useState<CharacterDetails>();
 
-  async function loadCharacterDetails() {
-    try {
-      const data = await characterService.getCharacterById(id);
-      setCharacter(data?.character);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   useEffect(() => {
+    async function loadCharacterDetails() {
+      try {
+        const data = await characterService.getCharacterById(id);
+        setCharacter(data?.character);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
     loadCharacterDetails();
   }, [id]);
 
@@ -56,7 +56,7 @@ export default function CharacterDetails() {
       style={styles.screen}
       contentContainerStyle={styles.scrollContent}
     >
-      {/* Avatar */}
+  
       <View style={styles.avatarWrapper}>
         <Image
           source={{ uri: character?.image }}

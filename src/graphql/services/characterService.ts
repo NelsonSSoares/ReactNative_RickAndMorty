@@ -4,9 +4,10 @@ import { GET_ALL_CHARACTERS, GET_CHARACTER_BY_ID } from "../queries/characterQue
 
 
 export const characterService ={
-    async getAllCharacters(): Promise<GetAllCharactersResponse>{
+    async getAllCharacters(page: number = 1, name?: string): Promise<GetAllCharactersResponse>{
         const {data} = await client.query<GetAllCharactersResponse>({
-            query: GET_ALL_CHARACTERS
+            query: GET_ALL_CHARACTERS,
+            variables: {page, name}
         }) 
 
         return data!
