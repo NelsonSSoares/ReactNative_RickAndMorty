@@ -11,6 +11,7 @@ import {
 import Card from '../components/card/Card';
 import { Character } from '../constants/types/types';
 import { characterService } from '../graphql/services/characterService';
+import NotFound from '../components/notFound/NotFound';
 
 export default function Home() {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -36,7 +37,7 @@ export default function Home() {
       setLoading(false);
     }
   }
-  
+
   async function loadMore() {
     if (!hasNextPage || loading) return;
 
@@ -77,6 +78,7 @@ export default function Home() {
         />
       </View>
 
+      {!search || characters.length === 0 && !loading && <NotFound />}
       <FlatList
         data={characters}
         numColumns={2}
