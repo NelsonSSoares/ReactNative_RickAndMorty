@@ -11,7 +11,7 @@ import {
 import Card from '../components/card/Card';
 import { Character } from '../constants/types/types';
 import { characterService } from '../graphql/services/characterService';
-import NotFound from '../components/notFound/NotFound';
+import ErrorComponent from '../components/errors/ErrorComponent';
 
 export default function Home() {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -78,7 +78,14 @@ export default function Home() {
         />
       </View>
 
-      {!search || characters.length === 0 && !loading && <NotFound />}
+      {search && characters.length === 0 && !loading && 
+        <ErrorComponent 
+          title="404 - Not Found" 
+          message="No characters found."
+          titleStyle={{ fontSize: 24, color: 'red' }}
+          messageStyle={{ fontSize: 16, color: 'gray' }}
+        />
+      }
       <FlatList
         data={characters}
         numColumns={2}

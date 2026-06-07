@@ -1,9 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
+import { ErrorComponentProps } from "../../constants/componentsProps";
 
-export default function NotFound() {
+
+export default function ErrorComponent({ title, message, titleStyle, messageStyle }: ErrorComponentProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>404 - Not Found :(</Text>
+      <Text style={[styles.text, titleStyle]}>{title}</Text>
+      <Text style={[styles.text, messageStyle]}>{message}</Text>
     </View>
   );
 }
