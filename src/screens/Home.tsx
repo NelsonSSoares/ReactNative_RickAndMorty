@@ -11,7 +11,7 @@ import {
 import Card from '../components/card/Card';
 import { Character } from '../constants/types/types';
 import { characterService } from '../graphql/services/characterService';
-import ErrorComponent from '../components/errors/ErrorComponent';
+import ErrorComponent from '../errors/ErrorComponent';
 
 export default function Home() {
   const [characters, setCharacters] = useState<Character[]>([]);

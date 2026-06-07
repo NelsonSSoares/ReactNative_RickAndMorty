@@ -45,7 +45,7 @@ export default function CharacterDetails() {
   const statusColor = STATUS_COLORS[character?.status ?? ''] ?? '#9E9E9E';
 
   const formattedDate = character?.created
-    ? new Date(character.created).toLocaleDateString('pt-BR', {
+    ? new Date(character.created).toLocaleDateString('en-US', {
         day: '2-digit',
         month: 'long',
         year: 'numeric',

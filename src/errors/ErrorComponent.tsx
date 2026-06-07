@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { ErrorComponentProps } from "../../constants/componentsProps";
+import { ErrorComponentProps } from "../constants/componentsProps";
 
 
 export default function ErrorComponent({ title, message, titleStyle, messageStyle }: ErrorComponentProps) {

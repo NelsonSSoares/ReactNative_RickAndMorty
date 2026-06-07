@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import ErrorComponent from '../components/errors/ErrorComponent';
+import ErrorComponent from '../errors/ErrorComponent';
 
 export default function Profile() {
   return (
