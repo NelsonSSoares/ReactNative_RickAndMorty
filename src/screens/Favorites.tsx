@@ -9,7 +9,10 @@ export default function Favorites() {
   const favorites = Object.values(favoritesMap);
 
   if (favorites.length === 0) {
-    return <ErrorComponent title="No favorites yet" message="..." />;
+    return <ErrorComponent title="Favorites" message="You haven't favorited any characters yet."
+        titleStyle={{ fontSize: 24, color: 'red' }}
+        messageStyle={{ fontSize: 16, color: 'gray' }}
+    />;
   }
 
   return (
