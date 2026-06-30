@@ -63,7 +63,17 @@ export default function CharacterDetails() {
 
       <View style={styles.statusContainer}>
         <Text style={styles.name}>{character?.name}</Text>
-        <FavoriteButton id={character?.id ?? ''} />
+      {character && (
+        <FavoriteButton
+          character={{
+            id: character.id,
+            name: character.name,
+            image: character.image,
+            species: character.species,
+            status: character.status,
+          }}
+        />
+)}
       </View>
 
       <View style={[styles.statusBadge, { backgroundColor: statusColor + '22' }]}>

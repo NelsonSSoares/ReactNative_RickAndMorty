@@ -57,7 +57,7 @@ export default function Card({ character }: { character: Character }) {
 
           <View style={styles.infoRow}>
             <Text style={[styles.label, { marginTop: 9 }]}>Favorite:</Text>
-            <FavoriteButton id={character.id} />
+            <FavoriteButton character={character} />
           </View>
         </View>
       </View>
